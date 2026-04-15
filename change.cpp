@@ -3,71 +3,77 @@
 using namespace std;
 
 template<typename T>
-int contains(const T* arr, size_t n, const T value) {
-    for (size_t i = 0; i < n; ++i) {
-        if (arr[i] == value) return static_cast<int>(i);
+bool contains(T value, T* array, int size) {
+    for (int i = 0; i < size; ++i) {
+        if (array[i] == value)
+            return true;
     }
-    return -1;
+    return false;
 }
 
 template<typename T>
-bool change(const T a, const T b, T* arr, size_t n) {
-    int ia = contains(arr, n, a);
-    int ib = contains(arr, n, b);
-
-    if (ia == -1 || ib == -1) {
-        cout << "Error: ";
-        if (ia == -1) cout << a;
-        if (ia == -1 & ib == -1) cout << " и ";
-        if (ib == -1) cout << b;
-        cout << " not found";
-        cout << " in an array\n";
+bool change(T first, T second, T* array, int size){
+    if (!contains(first, array, size) || !contains(second, array, size)){
+        cout << "404: Not found" << endl;
         return false;
     }
 
-    T temp = arr[ia];
-    arr[ia] = arr[ib];
-    arr[ib] = temp;
+    int firstIdx = -1, secondIdx = -1;
+    for (int i = 0; i < size; ++i) {
+        if (array[i] == first) firstIdx = i;
+        if (array[i] == second) secondIdx = i;
+    }
 
-    cout << "The exchange of elements was successfully completed. (" << a << " <-> " << b << ")\n";
+    T tmp = array[firstIdx];
+    array[firstIdx] = array[secondIdx];
+    array[secondIdx] = tmp;
+
+    cout << "200: Swapped" << endl;
     return true;
 }
 
 template<typename T>
-void printArray(const T* arr, size_t n) {
-    for (size_t i = 0; i < n; ++i) {
-        cout << arr[i];
-        if (i + 1 < n) cout << " ";
+void printArray(T* array, int size) {
+    for (int i = 0; i < size; ++i) {
+        cout << array[i] << (i + 1 < size ? " " : "");
     }
-    cout << "\n";
+    cout << endl;
 }
 
 int main() {
-    size_t n1 = 5;
-    int* iarr = new int[n1];
-    for (size_t i = 0; i < n1; ++i) iarr[i] = static_cast<int>(i + 1);
-    cout << "int array before: "; printArray(iarr, n1);
-    change(2, 5, iarr, n1);
-    cout << "int array after: "; printArray(iarr, n1);
-    change(7, 3, iarr, n1);
-    delete[] iarr;
+     int arr[] = { 10, 20, 30, 40 };
+    for (int i = 0; i < 4; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    change<int>(10, 40, arr, 4);
+    for (int i = 0; i < 4; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    cout << endl;
 
-    size_t n2 = 4;
-    double* darr = new double[n2];
-    darr[0] = 1.1; darr[1] = 2.2; darr[2] = 3.3; darr[3] = 4.4;
-    cout << "\n double array before: "; printArray(darr, n2);
-    change(1.1, 4.4, darr, n2);
-    cout << "double array after: "; printArray(darr, n2);
-    delete[] darr;
+    double arr1[] = { 0.8, -20.53, 97.48, 7.65 };
+    for (int i = 0; i < 4; i++) {
+        cout << arr1[i] << " ";
+    }
+    cout << endl;
+    change<double>(-20.53, 97.48, arr1, 4);
+    for (int i = 0; i < 4; i++) {
+        cout << arr1[i] << " ";
+    }
+    cout << endl;
+    cout << endl;
 
-    size_t n3 = 4;
-    string* sarr = new string[n3];
-    sarr[0] = "apple"; sarr[1] = "banana"; sarr[2] = "cherry"; sarr[3] = "date";
-    cout << "\n string array before: "; printArray(sarr, n3);
-    change(string("banana"), string("date"), sarr, n3);
-    cout << "string array after: "; printArray(sarr, n3);
-    change(string("pear"), string("apple"), sarr, n3);
-    delete[] sarr;
-
+    string arr2[] = {"House", "Monday", "Thing", "Sleep"};
+    for (int i = 0; i < 4; i++) {
+        cout << arr2[i] << " ";
+    }
+    cout << endl;
+    change<string>("Monday", "Sleep", arr2, 4);
+    for (int i = 0; i < 4; i++) {
+        cout << arr2[i] << " ";
+    }
+    cout << endl;
     return 0;
 }
