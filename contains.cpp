@@ -3,32 +3,33 @@
 using namespace std;
 
 template<typename T>
-bool contains(const T value, const T* arr, int size) {
+bool contains(T element, T* array, int size) {
     for (int i = 0; i < size; ++i) {
-        if (arr[i] == value) return true;
+        if (array [i] == element) {
+            return true;
     }
     return false;
 }
 
 int main() {
-    int n1 = 5;
-    int* iarr = new int[n1]{1, 2, 3, 4, 5};
-    cout << boolalpha;
-    cout << "3 in int array: " << contains(3, iarr, n1) << "\n";
-    cout << "7 in int array: " << contains(7, iarr, n1) << "\n";
-    delete[] iarr;
+    int intArray[] = {1, 2, 3, 4, 5};
+    int intSize = 5;
+    cout << "Contains 3? " << contains(3, intArray, intSize) << endl;
+    cout << "Contains 7? " << contains(7, intArray, intSize) << endl;
+    
+    cout << endl;
+    
+    double doubleArray[] = {1.5, 2.5, 3.0, 4.2. 5.3};
+    int doubleSize = 3;
+    cout << "Contains 2.5? " << contains(2.5, doubleArray, doubleSize) << endl;
+    cout << "Contains 5.0? " << contains(5.0, doubleArray, doubleSize) << endl;
+    
+    cout << endl;
 
-    int n2 = 4;
-    double* darr = new double[n2]{1.5, 2.5, 3.0, 4.2};
-    cout << "2.5 in double array: " << contains(2.5, darr, n2) << "\n";
-    cout << "5.0 in double array: " << contains(5.0, darr, n2) << "\n";
-    delete[] darr;
-
-    int n3 = 3;
- string* sarr = new string[n3]{"hello", "world", "C++"};
-    cout << "\"world\" in string array: " << contains(string("world"), sarr, n3) << "\n";
-    cout << "\"java\" in string array: " << contains(string("java"), sarr, n3) << "\n";
-    delete[] sarr;
+    string strArray[] = {"hello", "world", "banana"};
+    int strSize = 4;
+    cout << "Contains banana?" in string array: " << contains<string>(world, strArray, strSize) << endl;
+    cout << "Contains java?" in string array: " << contains<string>(java, strArray, strSize) << endl;
 
     return 0;
 }
